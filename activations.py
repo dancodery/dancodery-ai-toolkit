@@ -42,8 +42,47 @@ def sigmoid(x: float) -> float:
 
 def tanh(x: float) -> float:
     """
-    The hyperbolic tangent (tanh) function is a sigmoid-like activation
-    function that squashes its input to a range between -1 and 1.
+    Hyperbolic tangent (tanh) activation function.
+
+    The tanh function maps any real-valued input number to a value
+    between -1 and 1.
+
+    Args:
+        x (float):
+            The input value before activation.
+            x can be any real number, for example -10.0, 0.0, or 10.0.
+
+    Returns:
+        float:
+            The activated output value.
+            The result is always in the range (-1, 1).
+            Values close to -1 represent a strong negative activation.
+            Values close to 1 represent a strong positive activation.
+            If x is 0, the result is exactly 0.0.
+
+    Why this formula:
+        tanh(x) = (e^x - e^(-x)) / (e^x + e^(-x))
+
+        We use this formula because it smoothly compresses very small and
+        very large input values into the range between -1 and 1.
+
+        - If x is very negative, e^(-x) becomes very large, so the result
+          gets close to -1.
+        - If x is 0, e^x and e^(-x) are both 1, so the result is
+          (1 - 1) / (1 + 1) = 0.
+        - If x is very positive, e^x becomes very large, so the result
+          gets close to 1.
+
+        This makes tanh useful when we want activations that can represent
+        both negative and positive signals.
+
+        Compared to sigmoid, tanh is centered around 0 instead of 0.5.
+        That often makes it easier for neural networks to learn, because
+        negative inputs produce negative outputs and positive inputs produce
+        positive outputs.
+
+        We do not use a random formula here: this specific shape is smooth,
+        bounded, differentiable, and symmetric around 0.
     """
     return (math.exp(x) - math.exp(-x)) / (math.exp(x) + math.exp(-x))
 
